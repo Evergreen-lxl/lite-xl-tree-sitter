@@ -1,0 +1,6 @@
+[submodule "lua-tree-sitter"]
+	path = lib/lua-tree-sitter
+	url = https://github.com/xcb-xwii/lua-tree-sitter
+[submodule "lib/lite-xl"]
+	path = lib/lite-xl
+	url = https://github.com/lite-xl/lite-xl
