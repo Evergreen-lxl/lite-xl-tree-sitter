@@ -4,3 +4,6 @@
 [submodule "lib/lite-xl"]
 	path = lite-xl
 	url = https://github.com/lite-xl/lite-xl
+[submodule "pragtical"]
+	path = pragtical
+	url = https://github.com/pragtical/pragtical
