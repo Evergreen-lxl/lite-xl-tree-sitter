@@ -12,7 +12,7 @@ jobs:
       matrix:
         editor:
           - name: lite-xl
-            make_opts:
+            make_opts: "'LTS_CFLAGS=-std=c11'"
           - name: pragtical
             make_opts: "'LTS_CFLAGS=-std=c11 -DPRAGTICAL'"
     defaults:
@@ -45,7 +45,7 @@ jobs:
       matrix:
         editor:
           - name: lite-xl
-            make_opts:
+            make_opts: "'LTS_CFLAGS=-std=c11'"
           - name: pragtical
             make_opts: "'LTS_CFLAGS=-std=c11 -DPRAGTICAL'"
         arch:
@@ -79,21 +79,21 @@ jobs:
       matrix:
         editor:
           - name: lite-xl
-            make_opts:
+            make_opts: "'LTS_CFLAGS=-std=c11'"
           - name: pragtical
             make_opts: "'LTS_CFLAGS=-std=c11 -DPRAGTICAL'"
         arch:
           - name: x86_64
-            cc: gcc
+            make_opts: "'CFLAGS=-O3 -fvisibility=hidden -fPIC -flto=auto -target x86_64-apple-darwin'"
           - name: aarch64
-            cc: aarch64-elf-gcc
+            make_opts: "'CFLAGS=-O3 -fvisibility=hidden -fPIC -flto=auto -target aarch64-apple-darwin'"
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Build
-        run: bash make.sh lua_tree_sitter.so ${{ matrix.editor.make_opts }}
+        run: bash make.sh lua_tree_sitter.so ${{ matrix.arch.make_opts }} ${{ matrix.editor.make_opts }}
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
