@@ -93,11 +93,11 @@ jobs:
         with:
           submodules: recursive
       - name: Install Brew
-        run: bash -c '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)'
+        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - name: Install CC
         run: env NONINTERACTIVE=1 brew install ${{ matrix.arch.cc }}
       - name: Build
-        run: bash make.sh lua_tree_sitter.so CC=${{ matrix.arch.cc }} ${{ matrix.editor.make_opts }}
+        run: /bin/bash make.sh lua_tree_sitter.so CC=${{ matrix.arch.cc }} ${{ matrix.editor.make_opts }}
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
