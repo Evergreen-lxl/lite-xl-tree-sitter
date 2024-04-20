@@ -1,3 +1,6 @@
+#define LITE_XL_PLUGIN_ENTRYPOINT
+#define PRAGTICAL_PLUGIN_ENTRYPOINT
+
 #include <lua.h>
 
 #include <lts/util.h>
