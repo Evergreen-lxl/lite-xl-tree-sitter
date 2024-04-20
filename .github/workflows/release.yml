@@ -1,0 +1,29 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag
+        required: true
+        type: string
+
+jobs:
+  build:
+    name: Build binaries
+    uses: ./.github/workflows/build.yml
+  release:
+    name: Upload release
+    needs: build
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+      - name: Upload artifacts to release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "lite-xl-tree-sitter.*/*,pragtical-tree-sitter.*/*"
+          tag: ${{ inputs.tag }}
+          allowUpdates: true
