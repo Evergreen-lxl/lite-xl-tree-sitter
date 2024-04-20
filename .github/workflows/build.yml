@@ -1,0 +1,105 @@
+name: Build
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  windows-x86_64:
+    name: Build for Windows
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        editor:
+          - name: lite-xl
+            make_opts:
+          - name: pragtical
+            make_opts: "'LTS_CFLAGS=-std=c11 -Wall -Wextra -Werror -DPRAGTICAL'"
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: >-
+            base-devel
+            git
+            mingw-w64-x86_64-gcc
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Build
+        run: sh make.sh lua_tree_sitter.dll ${{ matrix.editor.make_opts }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.editor.name }}-tree-sitter-x86_64-windows
+          path: lua-tree-sitter/lua_tree_sitter.dll
+
+  linux:
+    name: Build for Linux
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        editor:
+          - name: lite-xl
+            make_opts:
+          - name: pragtical
+            make_opts: "'LTS_CFLAGS=-std=c11 -Wall -Wextra -DPRAGTICAL'"
+        arch:
+          - name: x86_64
+            cc: gcc
+          - name: aarch64
+            cc: aarch64-linux-gnu-gcc
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Build
+        uses: docker://archlinux:latest
+        with:
+          args: >-
+            sh -c "
+              pacman -Sy --noconfirm make ${{ matrix.arch.cc }} &&
+              sh make.sh lua_tree_sitter.so CC=${{ matrix.arch.cc }} ${{ matrix.editor.make_opts }}
+            "
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.editor.name }}-tree-sitter-${{ matrix.arch.name }}-linux
+          path: lua-tree-sitter/lua_tree_sitter.so
+
+  macos:
+    name: Build for MacOS
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        editor:
+          - name: lite-xl
+            make_opts:
+          - name: pragtical
+            make_opts: "'CFLAGS=-std=c11 -Wall -Wextra -Werror -DPRAGTICAL'"
+        arch:
+          - name: x86_64
+            cc: gcc
+          - name: aarch64
+            cc: aarch64-elf-gcc
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Install Brew
+        run: bash -c '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)'
+      - name: Install CC
+        run: env NONINTERACTIVE=1 brew install ${{ matrix.arch.cc }}
+      - name: Build
+        run: bash make.sh lua_tree_sitter.so CC=${{ matrix.arch.cc }} ${{ matrix.editor.make_opts }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.editor.name }}-tree-sitter-${{ matrix.arch.name }}-macos
+          path: lua-tree-sitter/lua_tree_sitter.so
