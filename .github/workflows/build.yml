@@ -31,12 +31,15 @@ jobs:
         with:
           submodules: recursive
       - name: Build
-        run: sh make.sh lua_tree_sitter.dll ${{ matrix.editor.make_opts }}
+        run: >-
+          sh make.sh lua_tree_sitter.dll ${{ matrix.editor.make_opts }} &&
+          mv lua-tree-sitter/lua_tree_sitter.dll init.dll
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.editor.name }}-tree-sitter-x86_64-windows
-          path: lua-tree-sitter/lua_tree_sitter.dll
+          path: init.dll
+          if-no-files-found: error
 
   linux:
     name: Build for Linux
@@ -50,27 +53,28 @@ jobs:
             make_opts: "'LTS_CFLAGS=-std=c11 -DPRAGTICAL'"
         arch:
           - name: x86_64
+            pkg:
             cc: gcc
           - name: aarch64
+            pkg: gcc-aarch64-linux-gnu
             cc: aarch64-linux-gnu-gcc
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
         with:
           submodules: recursive
+      - name: Install cc
+        run: sudo apt-get -y update && sudo apt-get -y upgrade && sudo apt-get install make ${{ matrix.arch.cc }}
       - name: Build
-        uses: docker://archlinux:latest
-        with:
-          args: >-
-            sh -c "
-              pacman -Sy --noconfirm make ${{ matrix.arch.cc }} &&
-              sh make.sh lua_tree_sitter.so CC=${{ matrix.arch.cc }} ${{ matrix.editor.make_opts }}
-            "
+        run: >-
+          sh make.sh lua_tree_sitter.so CC=${{ matrix.arch.cc }} ${{ matrix.editor.make_opts }} &&
+          mv lua-tree-sitter/lua_tree_sitter.so init.so
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.editor.name }}-tree-sitter-${{ matrix.arch.name }}-linux
-          path: lua-tree-sitter/lua_tree_sitter.so
+          path: init.so
+          if-no-files-found: error
 
   macos:
     name: Build for MacOS
@@ -93,9 +97,12 @@ jobs:
         with:
           submodules: recursive
       - name: Build
-        run: bash make.sh lua_tree_sitter.so ${{ matrix.arch.make_opts }} ${{ matrix.editor.make_opts }}
+        run: >-
+          bash make.sh lua_tree_sitter.so ${{ matrix.arch.make_opts }} ${{ matrix.editor.make_opts }} &&
+          mv lua-tree-sitter/lua_tree_sitter.so init.so
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.editor.name }}-tree-sitter-${{ matrix.arch.name }}-macos
-          path: lua-tree-sitter/lua_tree_sitter.so
+          name: ${{ matrix.editor.name }}-tree-sitter-${{ matrix.arch.name }}-darwin
+          path: init.so
+          if-no-files-found: error
