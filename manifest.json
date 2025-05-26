@@ -5,36 +5,36 @@
 			"description": "Tree-sitter bindings based on `lua-tree-sitter`",
 			"name": "Tree-sitter",
 			"type": "library",
-			"version": "0.1.1",
+			"version": "0.1.2",
 			"files": [
 				{
 					"arch": "aarch64-linux",
-					"url": "https://github.com/xcb-xwii/lite-xl-tree-sitter/releases/download/v0.1.1/lite-xl-tree-sitter.aarch64-linux.so",
-					"checksum": "0f91b77a5855f22dbdd61c2d96c3e50060b747d0b080f56fb6430ec39d960270",
+					"url": "https://github.com/xcb-xwii/lite-xl-tree-sitter/releases/download/v0.1.2/lite-xl-tree-sitter.aarch64-linux.so",
+					"checksum": "2562317aedbd41232a19d1bebebe969c6d282db47115f3b21a2cd4be91c4721f",
 					"path": "init.aarch64-linux.so"
 				},
 				{
 					"arch": "x86_64-linux",
-					"url": "https://github.com/xcb-xwii/lite-xl-tree-sitter/releases/download/v0.1.1/lite-xl-tree-sitter.x86_64-linux.so",
-					"checksum": "1101f70603fd8b4a1b68ebbdefcb656cec5763bdf4d5f09a9a7ebbd9e584a286",
+					"url": "https://github.com/xcb-xwii/lite-xl-tree-sitter/releases/download/v0.1.2/lite-xl-tree-sitter.x86_64-linux.so",
+					"checksum": "b30dde2e33ca9a027cb51d12c00662ed7e8040985705dbcf9f5fdfce03ca7606",
 					"path": "init.x86_64-linux.so"
 				},
 				{
 					"arch": "aarch64-darwin",
-					"url": "https://github.com/xcb-xwii/lite-xl-tree-sitter/releases/download/v0.1.1/lite-xl-tree-sitter.aarch64-macos.so",
-					"checksum": "472e8058a6ecbd227fdedf6aaabc9d8e43c4ac754251ca334e5afb9ae18b831b",
+					"url": "https://github.com/xcb-xwii/lite-xl-tree-sitter/releases/download/v0.1.2/lite-xl-tree-sitter.aarch64-macos.so",
+					"checksum": "cecd043adbbf8595f0d428555b331a5dd771cb185f4bc851b3517f0db8add059",
 					"path": "init.aarch64-darwin.so"
 				},
 				{
 					"arch": "x86_64-darwin",
-					"url": "https://github.com/xcb-xwii/lite-xl-tree-sitter/releases/download/v0.1.1/lite-xl-tree-sitter.x86_64-darwin.so",
-					"checksum": "9fe5995a8e694636ebc8f35dcda2d93d36174ec5ed0c9127a211515c09cf69cb",
+					"url": "https://github.com/xcb-xwii/lite-xl-tree-sitter/releases/download/v0.1.2/lite-xl-tree-sitter.x86_64-darwin.so",
+					"checksum": "7104ae24e13227a9d82436eabadda02735d2bb3f39ef0808eb2c5b9e903abb3c",
 					"path": "init.x86_64-darwin.so"
 				},
 				{
 					"arch": "x86_64-windows",
-					"url": "https://github.com/xcb-xwii/lite-xl-tree-sitter/releases/download/v0.1.1/lite-xl-tree-sitter.x86_64-windows.dll",
-					"checksum": "81993226f385f1713feb65e574e381af5f29b44f1354720c2384e7b0be12c646",
+					"url": "https://github.com/xcb-xwii/lite-xl-tree-sitter/releases/download/v0.1.2/lite-xl-tree-sitter.x86_64-windows.dll",
+					"checksum": "a86257667aaf678be7156178db00d4d797d037693bfb2b1868b27f1971f3ee35",
 					"path": "init.x86_64-windows.dll"
 				}
 			],
