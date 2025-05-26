@@ -35,7 +35,7 @@
 					"arch": "x86_64-windows",
 					"url": "https://github.com/xcb-xwii/lite-xl-tree-sitter/releases/download/v0.1.1/lite-xl-tree-sitter.x86_64-windows.dll",
 					"checksum": "81993226f385f1713feb65e574e381af5f29b44f1354720c2384e7b0be12c646",
-					"path": "init.x86_64-windows.so"
+					"path": "init.x86_64-windows.dll"
 				}
 			],
 		}
